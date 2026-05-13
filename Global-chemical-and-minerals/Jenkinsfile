@@ -1,0 +1,43 @@
+pipeline {
+  agent any
+
+  environment {
+    NODE_OPTIONS = '--max_old_space_size=4096'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
+
+    stage('Lint / Test') {
+      steps {
+        sh 'npm test -- --watch=false --browsers=ChromeHeadless'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'npm run build -- --configuration production'
+      }
+    }
+  }
+
+  post {
+    success {
+      archiveArtifacts artifacts: 'dist/**', fingerprint: true
+      junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
+    }
+    failure {
+      echo 'Build failed. Please check console output for details.'
+    }
+  }
+}
