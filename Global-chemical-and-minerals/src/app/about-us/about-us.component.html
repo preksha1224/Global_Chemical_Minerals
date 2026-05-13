@@ -1,0 +1,36 @@
+<section class="about-us-section">
+  <div class="about-us-image-slider-wrapper">
+    <button class="about-us-slider-arrow left" (click)="prevImage()">
+      &#8592;
+    </button>
+    <div class="about-us-image-slider">
+      <img
+        [src]="aboutImages[currentIndex].src"
+        [alt]="aboutImages[currentIndex].alt"
+        class="about-us-slider-image"
+      />
+    </div>
+    <button class="about-us-slider-arrow right" (click)="nextImage()">
+      &#8594;
+    </button>
+  </div>
+
+  <div class="about-us-text">
+    <h2 class="about-us-title">About Us</h2>
+    <p class="about-us-desc">
+      <strong>Established in 2012</strong>, Global Chemicals and Minerals, based in the thriving city of Vadodara, Gujarat, is a reputable manufacturer, supplier and trader in the chemical and minerals industry. Under the astute ownership of <strong>Mr. Nilesh Govindrao Pathak</strong>, <strong>Mr. Shirish Govindrao Pathak</strong>, the company has emerged as a trusted name known for its commitment to quality and customer satisfaction.
+    </p>
+    <p class="about-us-desc">
+      Global Chemicals and Minerals operates at the intersection of manufacturing and trading, offering a diverse range of chemical products and minerals to cater to various industrial needs. Our product portfolio is carefully curated to meet the stringent requirements of different industries, ensuring that our clients receive top-notch solutions for their specific applications.
+    </p>
+    <p class="about-us-desc">
+      As a manufacturer, we take pride in our production processes that adhere to the highest industry standards. From quality control measures to technological innovation, Global Chemicals and Minerals strives to deliver products that exemplify excellence. Simultaneously, our trading activities are characterized by a commitment to sourcing and providing a wide spectrum of chemical and mineral products from reliable and certified suppliers.
+    </p>
+    <p class="about-us-desc">
+      Under the dynamic leadership of Mr. Nilesh Govindrao Pathak, the company has not only sustained but thrived in a competitive market. His vision for Global Chemicals and Minerals revolves around continuous improvement, innovation, and a customer-centric approach. <strong>Now, his sons Aayush Pathak and Kaushal are also actively continuing and expanding the business, bringing fresh energy and new ideas to the company’s legacy.</strong>
+    </p>
+    <p class="about-us-desc">
+      The company's presence in Vadodara, a key industrial hub, positions it strategically to serve clients across diverse sectors. Global Chemicals and Minerals is dedicated to being a reliable partner for businesses seeking high-quality chemical and mineral solutions, fostering long-term relationships built on trust and mutual success.
+    </p>
+  </div>
+</section>

@@ -1,0 +1,139 @@
+.app-header {
+  background-color: #f4f4f2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  flex-wrap: wrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  .dropdown {
+    position: relative;
+  
+    .dropdown-toggle {
+      cursor: pointer;
+      position: relative;
+  
+      &::after {
+        content: ' ▼';
+        font-size: 0.6rem;
+        margin-left: 0.3rem;
+      }
+    }
+  
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      flex-direction: column;
+      padding: 0.5rem 0;
+      min-width: 220px;
+      z-index: 999;
+  
+      a {
+        padding: 0.5rem 1rem;
+        color: #1f2f3d;
+        font-size: 0.85rem;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #f0f0f0;
+          color: #0badef;
+        }
+      }
+    }
+  
+    &:hover .dropdown-menu {
+      display: flex;
+    }
+  }
+  
+  .nav-left,
+  .nav-right {
+    display: flex;
+    gap: 1.8rem;
+    align-items: center;
+    flex: 1;
+  }
+
+  .nav-left {
+    justify-content: flex-start;
+  }
+
+  .nav-right {
+    justify-content: flex-end;
+  }
+
+  .nav-link {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 620;
+    color: #1f2f3d;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+
+    &:hover {
+      color: #0badef;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #ead72b;
+      }
+    }
+  }
+
+  .logo-center {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img.gcm {
+      height: 60px;
+      max-width: 200px;
+      margin-left: -31px;
+      filter: drop-shadow(1px 1px 4px rgba(0, 0, 0, 0.2));
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  .call-button {
+    background-color: #0badef;
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 25px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+
+    i {
+      font-style: normal;
+      font-size: 1.1rem;
+    }
+
+    &:hover {
+      background-color: #ead72b;
+      color: #233849;
+    }
+  }
+}

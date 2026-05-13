@@ -1,0 +1,152 @@
+<div class="home">
+
+
+    <!-- Hero Image Slider -->
+  <!-- <section class="hero-slider">
+    <div class="video-slide">
+      <video autoplay muted loop playsinline>
+        <source src="assets/gcmadd.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video> 
+      <div class="slide-text">
+        <h1>Your Title Here</h1>
+        <p>Your subtitle or tagline goes here</p> 
+       <a routerLink="/contact" class="cta-button">Get in Touch</a> 
+      </div>
+     </div>
+  </section> -->
+  
+
+  <!-- About Section -->
+  <!-- <section class="about">
+    <h2>About Us</h2>
+    <p>We specialize in high-quality LED solutions for commercial and residential applications.</p>
+  </section> -->
+
+
+  <!-- Hero Carousel -->
+  <!-- <section class="carousel">
+    <div class="carousel-container">
+      <div class="carousel-slide" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <div class="carousel-item" *ngFor="let img of carouselImages; let i = index">
+          <img [src]="img" alt="Carousel image" class="carousel-image" />
+        </div>
+      </div>
+      <button class="carousel-btn prev" (click)="prevSlide()">&#10094;</button>
+      <button class="carousel-btn next" (click)="nextSlide()">&#10095;</button>
+    </div>
+  </section> -->
+  
+  <section class="carousel">
+    <div class="carousel-container">
+      <div
+        class="carousel-slide"
+        [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
+      >
+        <div class="carousel-item" *ngFor="let img of carouselImages">
+          <img [src]="img" alt="Carousel image" class="carousel-image" />
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<!-- <section class="free-sample-section">
+  <h2 class="heading">Watch Our Company Intro Video Today</h2>
+
+  <div class="video-bar">
+    <div class="icon video-icon">
+      <img src="assets/icons/play.svg" alt="Play Icon" />
+    </div>
+    <div class="video-info">
+      <a
+        href="https://www.example.com/company-intro-video"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="video-link"
+      >
+        Click here to watch our company video
+      </a>
+    </div>
+    <div class="icon video-icon">
+      <img src="assets/icons/play.svg" alt="Play Icon" />
+    </div>
+  </div>
+</section> -->
+
+
+<section class="free-sample-section">
+  <h2 class="heading">Watch Our Company Intro Video Today</h2>
+  <div class="video-card">
+    <div class="video-preview">
+      <video
+        #companyVideo
+        playsinline
+        class="company-video"
+        poster="assets/video-poster.jpg"
+        muted
+      >
+        <source src="assets/gcmadd.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Our Product -->
+<section class="products-section">
+  <h2 class="section-title">Our Products</h2>
+  <div class="carousel-wrapper">
+    <button class="carousel-arrow left" (click)="scrollCarousel(-1)">
+      &#8592;
+    </button>
+    <div class="products-carousel" #carousel>
+      <div
+        class="product-card"
+        *ngFor="let product of products"
+        (click)="openProductModal(product)"
+        (mouseenter)="cardActive = product.title"
+        (mouseleave)="cardActive = null"
+        [class.active]="cardActive === product.title"
+      >
+        <img [src]="product.image" [alt]="product.title" class="product-image" />
+        <h3 class="product-title">{{ product.title }}</h3>
+        <p class="product-desc">{{ product.description }}</p>
+      </div>
+    </div>
+    <button class="carousel-arrow right" (click)="scrollCarousel(1)">
+      &#8594;
+    </button>
+  </div>
+
+  <!-- Modal for product view -->
+  <div class="product-modal" *ngIf="modalProduct" (click)="closeProductModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <img [src]="modalProduct.image" [alt]="modalProduct.title" class="modal-image" />
+      <div class="modal-details">
+        <div class="modal-title">{{ modalProduct.title }}</div>
+        <div class="modal-desc">{{ modalProduct.description }}</div>
+        <button class="close-btn" (click)="closeProductModal()">Close</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="cta-container">
+      <h2>Ready to Light Up Your Business?</h2>
+      <a routerLink="/contact" class="cta-button">Contact Us</a>
+      <button ></button>
+    </div>
+  </section>
+
+  <div class="image-popup-modal" *ngIf="showPopup">
+  <div class="popup-content">
+    <img src="assets/popup.jpg" alt="Popup" class="popup-image" />
+    <button class="popup-close" (click)="closePopup()">&#10006;</button>
+  </div>
+</div>
+</div>
