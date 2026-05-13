@@ -20,19 +20,16 @@ pipeline {
       }
     }
 
-    // 🔍 Debug stage (helps avoid path issues)
     stage('Debug Files') {
       steps {
-        sh 'echo "Current Directory:"'
         sh 'pwd'
-        sh 'echo "Listing files:"'
         sh 'ls -la'
       }
     }
 
     stage('Install Dependencies') {
       steps {
-        dir('frontend') {   // ⚠️ change if your folder name is different
+        dir('Global-chemical-and-minerals') {   // ✅ FIXED
           sh 'npm install'
         }
       }
@@ -40,7 +37,7 @@ pipeline {
 
     stage('Lint / Test') {
       steps {
-        dir('frontend') {
+        dir('Global-chemical-and-minerals') {
           sh 'npm test -- --watch=false --browsers=ChromeHeadless || true'
         }
       }
@@ -48,7 +45,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        dir('frontend') {
+        dir('Global-chemical-and-minerals') {
           sh 'npm run build -- --configuration production'
         }
       }
@@ -57,8 +54,8 @@ pipeline {
 
   post {
     success {
-      archiveArtifacts artifacts: 'frontend/dist/**', fingerprint: true
-      junit allowEmptyResults: true, testResults: 'frontend/test-results/**/*.xml'
+      archiveArtifacts artifacts: 'Global-chemical-and-minerals/dist/**', fingerprint: true
+      junit allowEmptyResults: true, testResults: 'Global-chemical-and-minerals/test-results/**/*.xml'
     }
     failure {
       echo 'Build failed. Please check console output for details.'
