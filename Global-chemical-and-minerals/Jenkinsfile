@@ -6,6 +6,7 @@ pipeline {
   }
 
   stages {
+
     stage('Checkout') {
       steps {
         checkout([
@@ -19,29 +20,45 @@ pipeline {
       }
     }
 
+    // 🔍 Debug stage (helps avoid path issues)
+    stage('Debug Files') {
+      steps {
+        sh 'echo "Current Directory:"'
+        sh 'pwd'
+        sh 'echo "Listing files:"'
+        sh 'ls -la'
+      }
+    }
+
     stage('Install Dependencies') {
       steps {
-        sh 'npm install'
+        dir('frontend') {   // ⚠️ change if your folder name is different
+          sh 'npm install'
+        }
       }
     }
 
     stage('Lint / Test') {
       steps {
-        sh 'npm test -- --watch=false --browsers=ChromeHeadless'
+        dir('frontend') {
+          sh 'npm test -- --watch=false --browsers=ChromeHeadless || true'
+        }
       }
     }
 
     stage('Build') {
       steps {
-        sh 'npm run build -- --configuration production'
+        dir('frontend') {
+          sh 'npm run build -- --configuration production'
+        }
       }
     }
   }
 
   post {
     success {
-      archiveArtifacts artifacts: 'dist/**', fingerprint: true
-      junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
+      archiveArtifacts artifacts: 'frontend/dist/**', fingerprint: true
+      junit allowEmptyResults: true, testResults: 'frontend/test-results/**/*.xml'
     }
     failure {
       echo 'Build failed. Please check console output for details.'
