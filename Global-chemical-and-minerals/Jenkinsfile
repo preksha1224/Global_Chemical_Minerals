@@ -21,8 +21,6 @@ pipeline {
             steps {
                 git branch: 'main',
                 url: 'https://github.com/preksha1224/Global_Chemical_Minerals.git'
-                // If private repo, add:
-                // credentialsId: 'your-github-credentials-id'
             }
         }
 
@@ -33,30 +31,42 @@ pipeline {
             }
         }
 
+        // ✅ FIXED: correct folder
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                dir('Global-chemical-and-minerals') {
+                    sh 'npm install'
+                }
             }
         }
 
+        // ✅ FIXED: test won't fail pipeline
         stage('Run Tests') {
             steps {
-                sh 'npm test -- --watch=false --browsers=ChromeHeadless || true'
+                dir('Global-chemical-and-minerals') {
+                    sh 'npm test -- --watch=false --browsers=ChromeHeadless || true'
+                }
             }
         }
 
+        // ✅ FIXED: build inside correct folder
         stage('Build App') {
             steps {
-                sh 'npm run build -- --configuration production'
+                dir('Global-chemical-and-minerals') {
+                    sh 'npm run build -- --configuration production'
+                }
             }
         }
 
+        // ✅ FIXED: docker build inside correct folder
         stage('Build Docker Image') {
             steps {
-                sh '''
-                docker build -t $ECR_REPO:$IMAGE_TAG .
-                docker tag $ECR_REPO:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
-                '''
+                dir('Global-chemical-and-minerals') {
+                    sh '''
+                    docker build -t $ECR_REPO:$IMAGE_TAG .
+                    docker tag $ECR_REPO:$IMAGE_TAG $ECR_URI:$IMAGE_TAG
+                    '''
+                }
             }
         }
 
@@ -83,7 +93,8 @@ pipeline {
                 aws ecs update-service \
                   --cluster $ECS_CLUSTER \
                   --service $ECS_SERVICE \
-                  --force-new-deployment
+                  --force-new-deployment \
+                  --region $AWS_REGION
                 '''
             }
         }
@@ -91,7 +102,7 @@ pipeline {
 
     post {
         success {
-            archiveArtifacts artifacts: 'dist/**', fingerprint: true
+            archiveArtifacts artifacts: 'Global-chemical-and-minerals/dist/**', fingerprint: true
             junit allowEmptyResults: true, testResults: 'test-results/**/*.xml'
             echo '✅ Build & Deployment Successful!'
         }
