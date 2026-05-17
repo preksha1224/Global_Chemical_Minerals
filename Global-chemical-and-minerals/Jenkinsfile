@@ -9,10 +9,19 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
+        stage('Checkout Code') {
             steps {
                 git branch: 'main',
                     url: 'https://github.com/preksha1224/Global_Chemical_Minerals.git'
+            }
+        }
+
+        stage('Verify Project Structure') {
+            steps {
+                sh 'ls -la'
+                dir("${APP_DIR}") {
+                    sh 'ls -la'
+                }
             }
         }
 
@@ -35,8 +44,15 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                sudo rm -rf ${DEPLOY_DIR}/*
-                sudo cp -r ${APP_DIR}/${BUILD_DIR}/* ${DEPLOY_DIR}/
+                echo "Deploying application..."
+
+                # Clean old files
+                rm -rf ${DEPLOY_DIR}/*
+
+                # Copy new build files
+                cp -r ${APP_DIR}/${BUILD_DIR}/* ${DEPLOY_DIR}/
+
+                echo "Deployment completed"
                 '''
             }
         }
