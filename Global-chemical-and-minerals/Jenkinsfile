@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_DIR = "Global_Chemical_Minerals"
+        APP_DIR = "Global-chemical-and-minerals"
         BUILD_DIR = "dist/global-chemical-and-minerals"
         DEPLOY_DIR = "/var/www/html"
     }
@@ -32,16 +32,11 @@ pipeline {
             }
         }
 
-        stage('Deploy to Apache') {
+        stage('Deploy') {
             steps {
                 sh '''
-                echo "Cleaning old files..."
                 sudo rm -rf ${DEPLOY_DIR}/*
-
-                echo "Copying new build..."
                 sudo cp -r ${APP_DIR}/${BUILD_DIR}/* ${DEPLOY_DIR}/
-
-                echo "Deployment completed!"
                 '''
             }
         }
@@ -49,10 +44,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Deployment Successful!'
+            echo "✅ Deployment Successful"
         }
         failure {
-            echo '❌ Deployment Failed!'
+            echo "❌ Deployment Failed"
         }
     }
 }
