@@ -23,10 +23,10 @@ pipeline {
             }
         }
 
-        stage('Build React App') {
+        stage('Build Angular App') {
             steps {
                 dir('Global-chemical-and-minerals') {
-                    sh 'ng s'
+                    sh 'npx ng build --configuration=production'
                 }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
             steps {
                 sh '''
                 ssh -o StrictHostKeyChecking=no ubuntu@$SERVER_IP "sudo rm -rf $DEPLOY_DIR/*"
-                scp -o StrictHostKeyChecking=no -r my-react-app/build/* ubuntu@$SERVER_IP:$DEPLOY_DIR
+                scp -o StrictHostKeyChecking=no -r Global-chemical-and-minerals/dist/* ubuntu@$SERVER_IP:$DEPLOY_DIR
                 '''
             }
         }
