@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        SERVER_IP = "54.219.128.111"
+        APP_DIR = "Global_Chemical_Minerals"
+        BUILD_DIR = "dist/global-chemical-and-minerals"
         DEPLOY_DIR = "/var/www/html"
     }
 
@@ -17,7 +18,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                dir('Global-chemical-and-minerals') {
+                dir("${APP_DIR}") {
                     sh 'npm install'
                 }
             }
@@ -25,20 +26,33 @@ pipeline {
 
         stage('Build Angular App') {
             steps {
-                dir('Global-chemical-and-minerals') {
+                dir("${APP_DIR}") {
                     sh 'npx ng build --configuration=production'
                 }
             }
         }
 
-        stage('Deploy to Apache Server') {
+        stage('Deploy to Apache') {
             steps {
                 sh '''
-                ssh -o StrictHostKeyChecking=no ubuntu@$SERVER_IP "sudo rm -rf $DEPLOY_DIR/*"
-                scp -o StrictHostKeyChecking=no -r Global-chemical-and-minerals/dist/* ubuntu@$SERVER_IP:$DEPLOY_DIR
+                echo "Cleaning old files..."
+                sudo rm -rf ${DEPLOY_DIR}/*
+
+                echo "Copying new build..."
+                sudo cp -r ${APP_DIR}/${BUILD_DIR}/* ${DEPLOY_DIR}/
+
+                echo "Deployment completed!"
                 '''
             }
         }
+    }
 
+    post {
+        success {
+            echo '✅ Deployment Successful!'
+        }
+        failure {
+            echo '❌ Deployment Failed!'
+        }
     }
 }
