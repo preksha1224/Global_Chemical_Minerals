@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        APP_NAME = "my-app"   
+        APP_NAME = "Global_Chemical_Minerals"   
         DEPLOY_PATH = "/var/www/html"
     }
 
@@ -18,7 +18,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 echo "Pulling latest code from GitHub..."
-                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+                git branch: 'main', url: 'https://github.com/preksha1224/Global_Chemical_Minerals.git'
             }
         }
 
