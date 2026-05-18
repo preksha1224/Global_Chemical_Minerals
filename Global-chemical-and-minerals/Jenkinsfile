@@ -2,68 +2,67 @@ pipeline {
     agent any
 
     environment {
-        APP_DIR = "Global-chemical-and-minerals"
-        BUILD_DIR = "dist/global-chemical-and-minerals"
-        DEPLOY_DIR = "/var/www/html"
+        APP_NAME = "my-app"   
+        DEPLOY_PATH = "/var/www/html"
     }
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Clean Workspace') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/preksha1224/Global_Chemical_Minerals.git'
+                echo "Cleaning workspace..."
+                deleteDir()
             }
         }
 
-        stage('Verify Project Structure') {
+        stage('Checkout Code') {
             steps {
-                sh 'ls -la'
-                dir("${APP_DIR}") {
-                    sh 'ls -la'
-                }
+                echo "Pulling latest code from GitHub..."
+                git branch: 'main', url: 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                dir("${APP_DIR}") {
-                    sh 'npm install'
-                }
+                echo "Installing dependencies..."
+                sh 'npm ci'
             }
         }
 
         stage('Build Angular App') {
             steps {
-                dir("${APP_DIR}") {
-                    sh 'npx ng build --configuration=production'
-                }
+                echo "Building Angular app..."
+                sh 'npm run build -- --configuration production'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Apache') {
             steps {
-                sh '''
-                echo "Deploying application..."
+                echo "Deploying to Apache..."
 
-                # Clean old files
-                rm -rf ${DEPLOY_DIR}/*
+                sh """
+                sudo rm -rf ${DEPLOY_PATH}/*
+                sudo cp -r dist/${APP_NAME}/* ${DEPLOY_PATH}/
+                sudo chown -R www-data:www-data ${DEPLOY_PATH}
+                sudo chmod -R 755 ${DEPLOY_PATH}
+                """
+            }
+        }
 
-                # Copy new build files
-                cp -r ${APP_DIR}/${BUILD_DIR}/* ${DEPLOY_DIR}/
-
-                echo "Deployment completed"
-                '''
+        stage('Verify Deployment') {
+            steps {
+                echo "Checking if site is live..."
+                sh 'curl -I http://localhost'
             }
         }
     }
 
     post {
         success {
-            echo "✅ Deployment Successful"
+            echo "✅ Build & Deployment Successful!"
         }
         failure {
-            echo "❌ Deployment Failed"
+            echo "❌ Build Failed! Check logs."
         }
     }
 }
