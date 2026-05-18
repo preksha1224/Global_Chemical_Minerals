@@ -11,6 +11,8 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
+                deleteDir()   // ✅ clears old workspace completely
+
                 git branch: 'main',
                     url: 'https://github.com/preksha1224/Global_Chemical_Minerals.git'
             }
