@@ -43,7 +43,7 @@
       </div>
       <div class="stat-sep"></div>
       <div class="stat">
-        <span class="stat-num">&#8377;35Cr</span>
+        <span class="stat-num">&#8377;50Cr</span>
         <span class="stat-lbl">TURNOVER</span>
       </div>
       <div class="stat-sep"></div>
@@ -111,7 +111,7 @@
       >{{ f }}</button>
     </div>
     <div class="products-grid">
-      <div class="prod-card" *ngFor="let p of filteredProducts">
+      <div class="prod-card" *ngFor="let p of filteredProducts" (click)="openProduct(p)">
         <div class="prod-badge" *ngIf="p.badge">{{ p.badge }}</div>
         <div class="prod-img-wrap">
           <img [src]="p.image" [alt]="p.title" class="prod-img" />
@@ -124,7 +124,7 @@
           </div>
           <div class="prod-footer">
             <span class="prod-price">&#8377;{{ p.price }}<span class="price-unit"> / bag</span></span>
-            <button class="add-btn">+ Add</button>
+            <button class="add-btn" (click)="$event.stopPropagation(); openProduct(p)">View Details</button>
           </div>
         </div>
       </div>
@@ -157,7 +157,7 @@
         <p class="story-desc">
           Founded in 2008 by Shirish Pathak and Nilesh Pathak, Global Chemicals &amp;
           Minerals has grown into one of Gujarat's most trusted construction
-          chemical manufacturers — with annual turnover exceeding &#8377;35 Crore.
+          chemical manufacturers — with annual turnover exceeding &#8377;50 Crore.
         </p>
         <div class="story-features">
           <div class="feat-card">
@@ -304,6 +304,92 @@
       </div>
     </div>
   </section>
+
+  <!-- ═══════════════════ ABOUT SECTION ════════════════════════════════ -->
+  <section class="about-section" id="about">
+    <div class="about-inner">
+      <div class="about-left">
+        <div class="section-tag" style="color:#2d7a5a">WHO WE ARE</div>
+        <h2 class="about-heading">About Global Chemicals &amp; Minerals</h2>
+        <p>Global Chemicals &amp; Minerals was founded in 2008 by <strong>Shirish Pathak</strong> and <strong>Nilesh Pathak</strong> with a vision to manufacture premium quality construction chemicals at factory-direct prices.</p>
+        <p>Headquartered in <strong>Vadodara, Gujarat</strong>, we have grown to become one of Gujarat's most trusted manufacturers — serving contractors, architects, retailers, and builders across Pan India.</p>
+        <p>Our products carry the <strong>ISO 9001:2015</strong> certification and our brand &quot;Global&quot; is a registered trademark, ensuring every bag meets the highest quality standards.</p>
+        <div class="about-highlights">
+          <div class="ah-item"><span class="ah-num">18+</span><span class="ah-lbl">Years in Business</span></div>
+          <div class="ah-item"><span class="ah-num">&#8377;50Cr+</span><span class="ah-lbl">Annual Turnover</span></div>
+          <div class="ah-item"><span class="ah-num">50+</span><span class="ah-lbl">Employees</span></div>
+          <div class="ah-item"><span class="ah-num">Pan India</span><span class="ah-lbl">Distribution</span></div>
+        </div>
+        <a href="#order" class="about-cta">Get in Touch &#8594;</a>
+      </div>
+      <div class="about-right">
+        <img src="assets/logogcm-removebg-preview.png" alt="Global Chemicals Logo" class="about-logo-img" />
+        <div class="about-cert-box">
+          <span class="cert-icon">&#9989;</span>
+          <div>
+            <strong>ISO 9001:2015 Certified</strong>
+            <p>Certified quality management system for consistent production</p>
+          </div>
+        </div>
+        <div class="about-cert-box">
+          <span class="cert-icon">&#174;</span>
+          <div>
+            <strong>Registered Trademark</strong>
+            <p>Brand &quot;Global&quot; &amp; GCM Texture Bag — trademarked since 2024</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════ PRODUCT DETAIL MODAL ══════════════════════════════ -->
+  <div class="pdetail-overlay" *ngIf="selectedProduct" (click)="closeProduct()">
+    <div class="pdetail-card" (click)="$event.stopPropagation()">
+      <button class="pdetail-close" (click)="closeProduct()">&#10005;</button>
+
+      <!-- Breadcrumb -->
+      <div class="pdetail-breadcrumb">
+        Home &rsaquo; Products &rsaquo; {{ selectedProduct.category }} &rsaquo; <strong>{{ selectedProduct.title }}</strong>
+      </div>
+
+      <div class="pdetail-body">
+        <!-- Image -->
+        <div class="pdetail-img-col">
+          <img [src]="selectedProduct.image" [alt]="selectedProduct.title" class="pdetail-img" />
+        </div>
+
+        <!-- Info -->
+        <div class="pdetail-info-col">
+          <div class="pdetail-badge" *ngIf="selectedProduct.badge">{{ selectedProduct.badge }}</div>
+          <h2 class="pdetail-title">{{ selectedProduct.title }}</h2>
+          <div class="pdetail-price">
+            <span class="price-symbol">&#8377;</span>
+            <span class="price-val">{{ selectedProduct.price }}.00</span>
+            <span class="price-per">/ Bag</span>
+          </div>
+          <div class="pdetail-moq"><strong>{{ selectedProduct.moq }}</strong> (MOQ)</div>
+
+          <p class="pdetail-desc">{{ selectedProduct.details }}</p>
+
+          <div class="pdetail-specs">
+            <div class="spec-row"><span class="spec-lbl">Business Type</span><span class="spec-val">Manufacturer, Exporter</span></div>
+            <div class="spec-row"><span class="spec-lbl">Brand</span><span class="spec-val">{{ selectedProduct.brand }}</span></div>
+            <div class="spec-row"><span class="spec-lbl">Usage</span><span class="spec-val">{{ selectedProduct.usage }}</span></div>
+            <div class="spec-row"><span class="spec-lbl">Packaging</span><span class="spec-val">{{ selectedProduct.packaging }}</span></div>
+          </div>
+
+          <div class="pdetail-tags">
+            <span class="pdetail-tag" *ngFor="let t of selectedProduct.tags">{{ t }}</span>
+          </div>
+
+          <div class="pdetail-actions">
+            <a href="tel:+919909913216" class="pdetail-btn pdetail-btn--outline">&#128222; Request to Call</a>
+            <a href="#order" class="pdetail-btn pdetail-btn--solid" (click)="closeProduct()">&#9993; Send Enquiry</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Popup -->
   <div class="popup-overlay" *ngIf="showPopup" (click)="closePopup()">

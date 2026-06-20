@@ -1,5 +1,5 @@
 <header class="app-header">
-  <div class="header-logo">
+  <div class="header-logo" routerLink="/home" style="cursor:pointer">
     <div class="logo-icon">G</div>
     <div class="logo-text">
       <span class="brand-name">Global Chemicals</span>
@@ -9,10 +9,10 @@
 
   <nav class="header-nav">
     <a class="nav-link" routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
-    <a class="nav-link" href="#categories">Categories</a>
-    <a class="nav-link" href="#products">Products</a>
-    <a class="nav-link" routerLink="/about" routerLinkActive="active">About Us</a>
-    <a class="nav-link" routerLink="/contact" routerLinkActive="active">Order Now</a>
+    <a class="nav-link" (click)="scrollTo('categories')" style="cursor:pointer">Categories</a>
+    <a class="nav-link" (click)="scrollTo('products')" style="cursor:pointer">Products</a>
+    <a class="nav-link" (click)="scrollTo('about')" style="cursor:pointer">About Us</a>
+    <a class="nav-link" (click)="scrollTo('order')" style="cursor:pointer">Order Now</a>
   </nav>
 
   <div class="header-actions">
