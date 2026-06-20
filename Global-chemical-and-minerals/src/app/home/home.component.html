@@ -298,7 +298,18 @@
               <label>MESSAGE</label>
               <textarea rows="3" placeholder="Any special requirements..." name="message" ngModel></textarea>
             </div>
-            <button type="submit" class="submit-btn">&#128640; Submit Order Enquiry</button>
+            <button type="submit" class="submit-btn" [disabled]="orderSubmitting">
+              <span *ngIf="!orderSubmitting">&#128640; Submit Order Enquiry</span>
+              <span *ngIf="orderSubmitting">&#9203; Sending...</span>
+            </button>
+            <!-- Success message -->
+            <div class="form-success" *ngIf="orderSuccess">
+              &#9989; Inquiry submitted successfully! We will contact you within 2 business hours.
+            </div>
+            <!-- Error message -->
+            <div class="form-error" *ngIf="orderError">
+              &#9888; {{ orderError }}
+            </div>
           </form>
         </div>
       </div>

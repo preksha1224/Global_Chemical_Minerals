@@ -749,7 +749,30 @@ $text:  #1a1f2e;
           transition: opacity 0.2s;
           margin-top: 6px;
           font-family: inherit;
-          &:hover { opacity: 0.88; }
+          &:hover:not(:disabled) { opacity: 0.88; }
+          &:disabled { opacity: 0.6; cursor: not-allowed; }
+        }
+
+        .form-success {
+          margin-top: 14px;
+          background: #f0faf4;
+          border: 1px solid #2d7a5a;
+          color: #1e5940;
+          border-radius: 8px;
+          padding: 12px 16px;
+          font-size: 0.88rem;
+          font-weight: 600;
+        }
+
+        .form-error {
+          margin-top: 14px;
+          background: #fff5f5;
+          border: 1px solid #e53e3e;
+          color: #c53030;
+          border-radius: 8px;
+          padding: 12px 16px;
+          font-size: 0.88rem;
+          font-weight: 600;
         }
       }
     }

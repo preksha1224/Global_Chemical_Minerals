@@ -1,6 +1,7 @@
 ﻿import { Component, OnInit, PLATFORM_ID, Inject, ElementRef, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,17 @@ export class HomeComponent implements OnInit {
   activeFilter = 'All';
   selectedProduct: any = null;
 
+  // Order form state
+  orderSubmitting = false;
+  orderSuccess = false;
+  orderError = '';
+
   filterTabs = ['All', 'Wall Putty', 'White Cement', 'Tile Adhesive', 'Paint & Emulsion', 'Waterproofing', 'Texture Paint'];
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -36,25 +43,24 @@ export class HomeComponent implements OnInit {
     if (el) el.scrollBy({ left: dir * 280, behavior: 'smooth' });
   }
 
-  readonly waNumber = '917490945369';
-
   submitOrder(data: any) {
     if (!this.isBrowser) return;
+    this.orderSubmitting = true;
+    this.orderSuccess = false;
+    this.orderError = '';
 
-    const msg =
-      `*New Order Enquiry - Global Chemicals & Minerals*%0A` +
-      `-------------------------------------------%0A` +
-      `*Name:* ${data.fullName || '-'}%0A` +
-      `*Phone:* ${data.phone || '-'}%0A` +
-      `*Email:* ${data.email || '-'}%0A` +
-      `*Product:* ${data.product || '-'}%0A` +
-      `*Quantity:* ${data.quantity ? data.quantity + ' bags' : '-'}%0A` +
-      `*Delivery City:* ${data.city || '-'}%0A` +
-      `*Message:* ${data.message || '-'}%0A` +
-      `-------------------------------------------%0A` +
-      `_Sent via website order form_`;
-
-    window.open(`https://wa.me/${this.waNumber}?text=${msg}`, '_blank');
+    this.http.post<{ success: boolean; message?: string; error?: string }>(
+      'http://localhost:3000/api/order', data
+    ).subscribe({
+      next: (res) => {
+        this.orderSubmitting = false;
+        this.orderSuccess = true;
+      },
+      error: (err) => {
+        this.orderSubmitting = false;
+        this.orderError = err?.error?.error || 'Something went wrong. Please call us at +91 99099 13216.';
+      }
+    });
   }
 
   openProduct(p: any) { this.selectedProduct = p; }
