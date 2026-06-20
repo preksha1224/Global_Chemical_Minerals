@@ -36,8 +36,25 @@ export class HomeComponent implements OnInit {
     if (el) el.scrollBy({ left: dir * 280, behavior: 'smooth' });
   }
 
-  submitOrder() {
-    alert('Thank you! We will contact you within 2 business hours.');
+  readonly waNumber = '917490945369';
+
+  submitOrder(data: any) {
+    if (!this.isBrowser) return;
+
+    const msg =
+      `*New Order Enquiry - Global Chemicals & Minerals*%0A` +
+      `-------------------------------------------%0A` +
+      `*Name:* ${data.fullName || '-'}%0A` +
+      `*Phone:* ${data.phone || '-'}%0A` +
+      `*Email:* ${data.email || '-'}%0A` +
+      `*Product:* ${data.product || '-'}%0A` +
+      `*Quantity:* ${data.quantity ? data.quantity + ' bags' : '-'}%0A` +
+      `*Delivery City:* ${data.city || '-'}%0A` +
+      `*Message:* ${data.message || '-'}%0A` +
+      `-------------------------------------------%0A` +
+      `_Sent via website order form_`;
+
+    window.open(`https://wa.me/${this.waNumber}?text=${msg}`, '_blank');
   }
 
   openProduct(p: any) { this.selectedProduct = p; }

@@ -1,0 +1,71 @@
+// ═══════════════════════ FLOATING WHATSAPP BUTTON ═══════════════════════
+.wa-fab {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  // Pulse ring
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: #25D366;
+    opacity: 0.35;
+    animation: wa-pulse 2s ease-out infinite;
+  }
+
+  .wa-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    transition: transform 0.2s;
+    position: relative;
+    z-index: 1;
+  }
+
+  .wa-tooltip {
+    position: absolute;
+    left: 70px;
+    background: #1a1f2e;
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-family: 'Segoe UI', sans-serif;
+    white-space: nowrap;
+    padding: 7px 14px;
+    border-radius: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-8px);
+    transition: opacity 0.2s, transform 0.2s;
+
+    // Arrow pointing left toward icon
+    &::before {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 5px solid transparent;
+      border-right-color: #1a1f2e;
+      border-left: none;
+    }
+  }
+
+  &:hover {
+    .wa-icon    { transform: scale(1.1); }
+    .wa-tooltip { opacity: 1; transform: translateX(0); }
+  }
+}
+
+@keyframes wa-pulse {
+  0%   { transform: scale(1);   opacity: 0.35; }
+  70%  { transform: scale(1.55); opacity: 0; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
