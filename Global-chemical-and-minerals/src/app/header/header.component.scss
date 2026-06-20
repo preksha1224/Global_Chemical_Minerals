@@ -1,14 +1,116 @@
 .app-header {
-  background-color: #f4f4f2;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 3rem;
-  flex-wrap: wrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0.9rem 3rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
   z-index: 1000;
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      background: #1a2e1a;
+      color: #ffffff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+
+      .brand-name {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #1a1f2e;
+        line-height: 1.2;
+      }
+
+      .brand-sub {
+        font-size: 0.68rem;
+        color: #666;
+        letter-spacing: 0.04em;
+      }
+    }
+  }
+
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .nav-link {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: #444;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover, &.active {
+        color: #2d7a5a;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .header-actions {
+    .cart-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #1a1f2e;
+      color: #ffffff;
+      border: none;
+      border-radius: 24px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      .cart-count {
+        background: #c9a227;
+        color: #1a1f2e;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      &:hover { background: #2d3750; }
+    }
+  }
+
+  // Remove old nav-left/nav-right styles - replaced above
+  .nav-left, .nav-right, .logo-center, .call-button, .dropdown {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    padding: 0.8rem 1.2rem;
+    .header-nav { gap: 1.2rem; .nav-link { font-size: 0.82rem; } }
+  }
+
+  @media (max-width: 700px) {
+    .header-nav { display: none; }
+  }
   .dropdown {
     position: relative;
   

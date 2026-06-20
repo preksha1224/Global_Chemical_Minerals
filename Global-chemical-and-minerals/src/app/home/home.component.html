@@ -1,152 +1,316 @@
-<div class="home">
+<div class="home-wrap">
 
-
-    <!-- Hero Image Slider -->
-  <!-- <section class="hero-slider">
-    <div class="video-slide">
-      <video autoplay muted loop playsinline>
-        <source src="assets/gcmadd.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video> 
-      <div class="slide-text">
-        <h1>Your Title Here</h1>
-        <p>Your subtitle or tagline goes here</p> 
-       <a routerLink="/contact" class="cta-button">Get in Touch</a> 
-      </div>
-     </div>
-  </section> -->
-  
-
-  <!-- About Section -->
-  <!-- <section class="about">
-    <h2>About Us</h2>
-    <p>We specialize in high-quality LED solutions for commercial and residential applications.</p>
-  </section> -->
-
-
-  <!-- Hero Carousel -->
-  <!-- <section class="carousel">
-    <div class="carousel-container">
-      <div class="carousel-slide" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
-        <div class="carousel-item" *ngFor="let img of carouselImages; let i = index">
-          <img [src]="img" alt="Carousel image" class="carousel-image" />
+  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+  <section class="hero-section">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">&#9733; VADODARA'S PREMIER MANUFACTURER</div>
+        <h1 class="hero-heading">
+          Building India,<br>One Wall at a<br>
+          <em class="hero-italic">Time.</em>
+        </h1>
+        <p class="hero-desc">
+          Premium construction chemicals trusted by contractors,
+          architects, and builders across India. ISO certified,
+          trademarked excellence since 2008.
+        </p>
+        <div class="hero-btns">
+          <a href="#products" class="btn-primary">Explore Products &#8594;</a>
+          <a routerLink="/contact" class="btn-secondary">Request a Quote</a>
         </div>
       </div>
-      <button class="carousel-btn prev" (click)="prevSlide()">&#10094;</button>
-      <button class="carousel-btn next" (click)="nextSlide()">&#10095;</button>
+      <div class="hero-right">
+        <div class="hero-grid">
+          <div class="hero-card hero-card--lg">
+            <img src="assets/globalcoatmaster.jpeg" alt="Interior Emulsion" />
+          </div>
+          <div class="hero-card-row">
+            <div class="hero-card hero-card--sm">
+              <img src="assets/globalwallputty.jpeg" alt="Wall Putty" />
+            </div>
+            <div class="hero-card hero-card--sm">
+              <img src="assets/30kglobalwallputty.jpeg" alt="Master Coat Plus" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </section> -->
-  
-  <section class="carousel">
-    <div class="carousel-container">
-      <div
-        class="carousel-slide"
-        [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
-      >
-        <div class="carousel-item" *ngFor="let img of carouselImages">
-          <img [src]="img" alt="Carousel image" class="carousel-image" />
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">18+</span>
+        <span class="stat-lbl">YEARS</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num">&#8377;35Cr</span>
+        <span class="stat-lbl">TURNOVER</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num">Pan</span>
+        <span class="stat-lbl">INDIA</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat">
+        <span class="stat-num">ISO</span>
+        <span class="stat-lbl">CERTIFIED</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ TRUST BADGES ═══════════════════════════ -->
+  <section class="trust-section">
+    <div class="trust-badges">
+      <div class="trust-item">
+        <span class="trust-icon trust-icon--green">&#10003;</span>
+        <span>Registered Trademark 2026</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon trust-icon--orange">&#9733;</span>
+        <span>Pan India Delivery</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon trust-icon--blue">&#9650;</span>
+        <span>Direct Manufacturer Prices</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon trust-icon--pink">&#9679;</span>
+        <span>Bulk Order Discounts</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon trust-icon--yellow">&#9733;</span>
+        <span>ISO 9001:2015 Certified</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ CATEGORIES ══════════════════════════ -->
+  <section class="categories-section" id="categories">
+    <div class="section-tag">WHAT WE MAKE</div>
+    <h2 class="section-heading">Product Categories</h2>
+    <div class="categories-grid">
+      <div class="cat-card" *ngFor="let cat of categories">
+        <img [src]="cat.image" [alt]="cat.name" class="cat-img" />
+        <h3 class="cat-name">{{ cat.name }}</h3>
+        <p class="cat-count">{{ cat.count }} Product{{ cat.count > 1 ? 's' : '' }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ ALL PRODUCTS ════════════════════════ -->
+  <section class="products-section" id="products">
+    <div class="section-tag">SHOP ONLINE</div>
+    <h2 class="section-heading">All Products</h2>
+    <div class="filter-row">
+      <button
+        class="filter-btn"
+        [class.filter-btn--active]="activeFilter === f"
+        (click)="setFilter(f)"
+        *ngFor="let f of filterTabs"
+      >{{ f }}</button>
+    </div>
+    <div class="products-grid">
+      <div class="prod-card" *ngFor="let p of filteredProducts">
+        <div class="prod-badge" *ngIf="p.badge">{{ p.badge }}</div>
+        <div class="prod-img-wrap">
+          <img [src]="p.image" [alt]="p.title" class="prod-img" />
+        </div>
+        <div class="prod-body">
+          <span class="prod-cat">{{ p.category }}</span>
+          <h3 class="prod-name">{{ p.title }}</h3>
+          <div class="prod-tags">
+            <span class="prod-tag" *ngFor="let t of p.tags">{{ t }}</span>
+          </div>
+          <div class="prod-footer">
+            <span class="prod-price">&#8377;{{ p.price }}<span class="price-unit"> / bag</span></span>
+            <button class="add-btn">+ Add</button>
+          </div>
         </div>
       </div>
     </div>
   </section>
-  
-<!-- <section class="free-sample-section">
-  <h2 class="heading">Watch Our Company Intro Video Today</h2>
 
-  <div class="video-bar">
-    <div class="icon video-icon">
-      <img src="assets/icons/play.svg" alt="Play Icon" />
-    </div>
-    <div class="video-info">
-      <a
-        href="https://www.example.com/company-intro-video"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="video-link"
-      >
-        Click here to watch our company video
-      </a>
-    </div>
-    <div class="icon video-icon">
-      <img src="assets/icons/play.svg" alt="Play Icon" />
-    </div>
-  </div>
-</section> -->
-
-
-<section class="free-sample-section">
-  <h2 class="heading">Watch Our Company Intro Video Everyday</h2>
-  <div class="video-card">
-    <div class="video-preview">
-      <video
-        #companyVideo
-        playsinline
-        class="company-video"
-        poster="assets/video-poster.jpg"
-        muted
-      >
-        <source src="assets/gcmadd.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- Our Product -->
-<section class="products-section">
-  <h2 class="section-title">Our Products Have a Look</h2>
-  <div class="carousel-wrapper">
-    <button class="carousel-arrow left" (click)="scrollCarousel(-1)">
-      &#8592;
-    </button>
-    <div class="products-carousel" #carousel>
-      <div
-        class="product-card"
-        *ngFor="let product of products"
-        (click)="openProductModal(product)"
-        (mouseenter)="cardActive = product.title"
-        (mouseleave)="cardActive = null"
-        [class.active]="cardActive === product.title"
-      >
-        <img [src]="product.image" [alt]="product.title" class="product-image" />
-        <h3 class="product-title">{{ product.title }}</h3>
-        <p class="product-desc">{{ product.description }}</p>
+  <!-- ═══════════════════ PRODUCT RANGE CAROUSEL ═══════════════════════ -->
+  <section class="range-section">
+    <h2 class="range-title">Our Full Product Range</h2>
+    <div class="range-track-wrap">
+      <button class="range-arrow range-arrow--l" (click)="scrollRange(-1)">&#8249;</button>
+      <div class="range-track" #rangeTrack>
+        <div class="range-card" *ngFor="let p of allProducts">
+          <div class="range-img-box">
+            <img [src]="p.image" [alt]="p.title" />
+          </div>
+          <p class="range-name">{{ p.title }}</p>
+        </div>
       </div>
-    </div>
-    <button class="carousel-arrow right" (click)="scrollCarousel(1)">
-      &#8594;
-    </button>
-  </div>
-
-  <!-- Modal for product view -->
-  <div class="product-modal" *ngIf="modalProduct" (click)="closeProductModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <img [src]="modalProduct.image" [alt]="modalProduct.title" class="modal-image" />
-      <div class="modal-details">
-        <div class="modal-title">{{ modalProduct.title }}</div>
-        <div class="modal-desc">{{ modalProduct.description }}</div>
-        <button class="close-btn" (click)="closeProductModal()">Close</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-  <!-- Call to Action -->
-  <section class="cta-section">
-    <div class="cta-container">
-      <h2>Ready to Light Up Your Business?</h2>
-      <a routerLink="/contact" class="cta-button">Contact Us</a>
-      <button ></button>
+      <button class="range-arrow range-arrow--r" (click)="scrollRange(1)">&#8250;</button>
     </div>
   </section>
 
-  <div class="image-popup-modal" *ngIf="showPopup">
-  <div class="popup-content">
-    <img src="assets/popup.jpg" alt="Popup" class="popup-image" />
-    <button class="popup-close" (click)="closePopup()">&#10006;</button>
+  <!-- ═══════════════════════ OUR STORY ════════════════════════════════ -->
+  <section class="story-section">
+    <div class="story-inner">
+      <div class="story-left">
+        <div class="section-tag">OUR STORY</div>
+        <h2 class="story-heading">Built on Chemistry,<br>Driven by Quality</h2>
+        <p class="story-desc">
+          Founded in 2008 by Shirish Pathak and Nilesh Pathak, Global Chemicals &amp;
+          Minerals has grown into one of Gujarat's most trusted construction
+          chemical manufacturers — with annual turnover exceeding &#8377;35 Crore.
+        </p>
+        <div class="story-features">
+          <div class="feat-card">
+            <span class="feat-icon">&#127942;</span>
+            <div>
+              <strong>Registered Trademark</strong>
+              <p>GCM Texture Bag trademarked 2024. Brand "Global" protected since 2026.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-icon">&#128202;</span>
+            <div>
+              <strong>ISO 9001:2015</strong>
+              <p>Certified quality management for consistent production standards.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-icon">&#127981;</span>
+            <div>
+              <strong>Direct Manufacturing</strong>
+              <p>Every product made in-house — no middlemen, better prices.</p>
+            </div>
+          </div>
+          <div class="feat-card">
+            <span class="feat-icon">&#127775;</span>
+            <div>
+              <strong>18+ Years Trusted</strong>
+              <p>Serving contractors, retailers, and builders across Pan India.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="story-right">
+        <div class="stat-big-card">
+          <span class="stat-big-num">2008</span>
+          <span class="stat-big-lbl">YEAR FOUNDED</span>
+        </div>
+        <div class="stat-small-grid">
+          <div class="stat-sm-card">
+            <span class="stat-sm-num">&#8377;50Cr+</span>
+            <span class="stat-sm-lbl">TURNOVER</span>
+          </div>
+          <div class="stat-sm-card">
+            <span class="stat-sm-num">50+</span>
+            <span class="stat-sm-lbl">EMPLOYEES</span>
+          </div>
+          <div class="stat-sm-card">
+            <span class="stat-sm-num">18yr</span>
+            <span class="stat-sm-lbl">EXPERIENCE</span>
+          </div>
+          <div class="stat-sm-card">
+            <span class="stat-sm-num">ISO</span>
+            <span class="stat-sm-lbl">CERTIFIED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ PLACE YOUR ORDER ════════════════════════ -->
+  <section class="order-section" id="order">
+    <div class="order-inner">
+      <div class="order-left">
+        <div class="section-tag">GET IN TOUCH</div>
+        <h2 class="order-heading">Place Your Order</h2>
+        <p class="order-desc">
+          Whether you need a single bag or a full truckload, we're ready to serve.<br>
+          Reach us via WhatsApp, phone, or fill the form — our team responds within 2 hours.
+        </p>
+        <div class="order-contacts">
+          <div class="oc-row">
+            <span class="oc-icon oc-icon--red">&#128205;</span>
+            <div>
+              <strong>Address</strong>
+              <p>322, Laxmi Traders Compound, Dabhoi Road, Kapurai, Vadodara – 390004</p>
+            </div>
+          </div>
+          <div class="oc-row">
+            <span class="oc-icon oc-icon--green">&#128222;</span>
+            <div>
+              <strong>Phone</strong>
+              <p>+91 99099 13216</p>
+            </div>
+          </div>
+          <div class="oc-row">
+            <span class="oc-icon oc-icon--dark">&#9993;</span>
+            <div>
+              <strong>Email</strong>
+              <p>globalchemicalandminerals&#64;gmail.com</p>
+            </div>
+          </div>
+          <div class="oc-row">
+            <span class="oc-icon oc-icon--dark">&#127981;</span>
+            <div>
+              <strong>GST Number</strong>
+              <p>24ALMPP3439K1ZP</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="order-right">
+        <div class="order-form-card">
+          <h3>Send Order Request</h3>
+          <p class="form-sub">We confirm your order within 2 business hours.</p>
+          <form (ngSubmit)="submitOrder()" #orderForm="ngForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>FULL NAME</label>
+                <input type="text" placeholder="Your name" name="fullName" ngModel required />
+              </div>
+              <div class="form-group">
+                <label>PHONE</label>
+                <input type="tel" placeholder="+91 00000 00000" name="phone" ngModel required />
+              </div>
+            </div>
+            <div class="form-group form-group--full">
+              <label>EMAIL</label>
+              <input type="email" placeholder="your&#64;email.com" name="email" ngModel />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>PRODUCT</label>
+                <select name="product" ngModel required>
+                  <option value="">Select Product</option>
+                  <option *ngFor="let p of allProducts" [value]="p.title">{{ p.title }}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>QUANTITY</label>
+                <input type="number" placeholder="e.g. 50" name="quantity" ngModel required />
+              </div>
+            </div>
+            <div class="form-group form-group--full">
+              <label>DELIVERY CITY</label>
+              <input type="text" placeholder="e.g. Surat, Gujarat" name="city" ngModel />
+            </div>
+            <div class="form-group form-group--full">
+              <label>MESSAGE</label>
+              <textarea rows="3" placeholder="Any special requirements..." name="message" ngModel></textarea>
+            </div>
+            <button type="submit" class="submit-btn">&#128640; Submit Order Enquiry</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popup -->
+  <div class="popup-overlay" *ngIf="showPopup" (click)="closePopup()">
+    <div class="popup-box" (click)="$event.stopPropagation()">
+      <img src="assets/popup.jpg" alt="Popup" class="popup-img" />
+      <button class="popup-close" (click)="closePopup()">&#10005;</button>
+    </div>
   </div>
-</div>
+
 </div>
